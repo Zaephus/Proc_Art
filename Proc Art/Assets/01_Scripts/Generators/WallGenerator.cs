@@ -34,7 +34,7 @@ public class WallGenerator : StructureGenerator {
 
             for(int x = 0; x < xAmount; x++) {
 
-                if(iterator * Random.value * 2 > brickChance) {
+                if(iterator * Random.value * 2 > brickGenChance) {
                     if(delayBetweenBricks > 0.0f) {
                         yield return new WaitForSeconds(delayBetweenBricks);
                     }
@@ -43,12 +43,12 @@ public class WallGenerator : StructureGenerator {
                 }
 
                 Vector3 pos = transform.position + new Vector3(
-                    x * brickSize.x + x * brickMargin.x + xOffset,
+                    x * brickSize.x + x * brickMargin.x + xOffset + positionOffset.x,
                     brickSize.y * 0.5f + y * brickSize.y + y * brickMargin.y,
-                    0
+                    positionOffset.y
                 );
 
-                Instantiate(brickPrefab, pos, brickPrefab.transform.rotation, transform);
+                Instantiate(GetBrick(), pos, GetBrick().transform.rotation, transform);
 
                 iterator += 0.1f;
 

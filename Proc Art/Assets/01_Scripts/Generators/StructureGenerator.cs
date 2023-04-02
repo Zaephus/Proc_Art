@@ -6,6 +6,8 @@ public class StructureGenerator : MonoBehaviour {
 
     [SerializeField]
     protected GameObject brickPrefab;
+    [SerializeField]
+    private GameObject explosiveBrickPrefab;
 
     [SerializeField]
     protected Vector2Int brickAmount;
@@ -16,7 +18,12 @@ public class StructureGenerator : MonoBehaviour {
     protected float delayBetweenBricks;
 
     [SerializeField, Range(0, 1), Tooltip("Chance for the generation of a brick")]
-    protected float brickChance;
+    protected float brickGenChance;
+    [SerializeField, Range(0, 1)]
+    private float explosiveBrickChance;
+
+    [SerializeField]
+    protected Vector2 positionOffset;
 
     protected Vector3 brickSize;
 
@@ -35,4 +42,14 @@ public class StructureGenerator : MonoBehaviour {
     protected virtual IEnumerator Generate() {
         yield return null;
     }
+
+    protected GameObject GetBrick() {
+        if(Random.value < explosiveBrickChance) {
+            return explosiveBrickPrefab;
+        }
+        else {
+            return brickPrefab;
+        }
+    }
+
 }

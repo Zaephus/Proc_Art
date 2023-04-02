@@ -17,8 +17,9 @@ public class Shooter : MonoBehaviour {
     }
 
     private void Shoot() {
-        GameObject proj = Instantiate(projectile, transform.position, projectile.transform.rotation, transform);
+        Projectile proj = Instantiate(projectile, transform.position, projectile.transform.rotation, transform).GetComponent<Projectile>();
         proj.GetComponent<Rigidbody>().AddForce(shootStrength * transform.forward, ForceMode.Impulse);
+        proj.OnStart();
     }
 
 }
