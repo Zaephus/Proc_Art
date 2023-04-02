@@ -485,8 +485,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brickPrefab: {fileID: 4940610289335935981, guid: 9b65c527427fe6542b8b45407d49180a,
     type: 3}
-  brickAmount: {x: 15, y: 15}
-  brickMargin: {x: 0, y: 0}
+  brickAmount: {x: 15, y: 5}
+  brickMargin: {x: 0.1, y: 0.1}
+  delayBetweenBricks: 0.2
+  brickChance: 0.9
 --- !u!4 &1175937401
 Transform:
   m_ObjectHideFlags: 0

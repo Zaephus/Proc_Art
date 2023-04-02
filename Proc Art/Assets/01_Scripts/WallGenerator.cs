@@ -5,21 +5,32 @@ using UnityEngine;
 public class WallGenerator : MonoBehaviour {
 
     [SerializeField]
-    private GameObject brickPrefab;
+    protected GameObject brickPrefab;
 
     [SerializeField]
-    private Vector2Int brickAmount;
-
+    protected Vector2Int brickAmount;
     [SerializeField]
-    private Vector2 brickMargin;
+    protected Vector2 brickMargin;
+
+    [SerializeField, Range(0, 2)]
+    protected float delayBetweenBricks;
+
+    [SerializeField, Range(0, 1), Tooltip("Chance for the generation of a brick")]
+    protected float brickChance;
+
+    protected Vector3 brickSize;
+
+    private void Start() {
+        brickSize = brickPrefab.transform.localScale;
+    }
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Space)) {
-            Generate();
+            StartCoroutine(Generate());
         }
     }
 
-    private void Generate() {
+    protected virtual IEnumerator Generate() {
 
         if(transform.childCount > 0) {
             for(int i = transform.childCount-1; i >= 0; i--) {
@@ -27,12 +38,12 @@ public class WallGenerator : MonoBehaviour {
             }
         }
 
-        Vector2 brickSize = brickPrefab.transform.localScale;
-
-        float startOffset = -0.5f + (brickSize.x * brickAmount.x + (brickAmount.x - 1) * brickMargin.x) * 0.5f;
+        float startOffset = ((brickAmount.x * brickSize.x + (brickAmount.x - 1) * brickMargin.x) * 0.5f) - (0.5f * brickSize.x);
 
         float xOffset = 0.0f;
         int xAmount = brickAmount.x;
+
+        float iterator = 0;
 
         for(int y = 0; y < brickAmount.y; y++) {
 
@@ -46,12 +57,24 @@ public class WallGenerator : MonoBehaviour {
             }
 
             for(int x = 0; x < xAmount; x++) {
+
+                if(iterator * Random.value * 2 > brickChance) {
+                    yield return new WaitForSeconds(delayBetweenBricks);
+                    iterator = 0;
+                    continue;
+                }
+
                 Vector3 pos = transform.position + new Vector3(
-                    (x * brickSize.x * (1 + brickMargin.x)) + xOffset,
-                    brickSize.y * 0.5f + (y * brickSize.y * (1 + brickMargin.y)),
+                    x * brickSize.x + x * brickMargin.x + xOffset,
+                    brickSize.y * 0.5f + y * brickSize.y + y * brickMargin.y,
                     0
                 );
                 Instantiate(brickPrefab, pos, brickPrefab.transform.rotation, transform);
+
+                iterator += 0.1f;
+
+                yield return new WaitForSeconds(delayBetweenBricks);
+
             }
 
         }
