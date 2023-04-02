@@ -2,35 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallGenerator : MonoBehaviour {
+public class WallGenerator : StructureGenerator {
 
-    [SerializeField]
-    protected GameObject brickPrefab;
+    protected override IEnumerator Generate() {
 
-    [SerializeField]
-    protected Vector2Int brickAmount;
-    [SerializeField]
-    protected Vector2 brickMargin;
-
-    [SerializeField, Range(0, 2)]
-    protected float delayBetweenBricks;
-
-    [SerializeField, Range(0, 1), Tooltip("Chance for the generation of a brick")]
-    protected float brickChance;
-
-    protected Vector3 brickSize;
-
-    private void Start() {
-        brickSize = brickPrefab.transform.localScale;
-    }
-
-    private void Update() {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            StartCoroutine(Generate());
-        }
-    }
-
-    protected virtual IEnumerator Generate() {
+        isGenerating = true;
 
         if(transform.childCount > 0) {
             for(int i = transform.childCount-1; i >= 0; i--) {
@@ -59,7 +35,9 @@ public class WallGenerator : MonoBehaviour {
             for(int x = 0; x < xAmount; x++) {
 
                 if(iterator * Random.value * 2 > brickChance) {
-                    yield return new WaitForSeconds(delayBetweenBricks);
+                    if(delayBetweenBricks > 0.0f) {
+                        yield return new WaitForSeconds(delayBetweenBricks);
+                    }
                     iterator = 0;
                     continue;
                 }
@@ -69,15 +47,21 @@ public class WallGenerator : MonoBehaviour {
                     brickSize.y * 0.5f + y * brickSize.y + y * brickMargin.y,
                     0
                 );
+
                 Instantiate(brickPrefab, pos, brickPrefab.transform.rotation, transform);
 
                 iterator += 0.1f;
 
-                yield return new WaitForSeconds(delayBetweenBricks);
+                if(delayBetweenBricks > 0.0f) {
+                    yield return new WaitForSeconds(delayBetweenBricks);
+                }
 
             }
 
         }
+
+        isGenerating = false;
+        yield return null;
 
     }
 

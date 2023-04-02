@@ -11,7 +11,7 @@ public class Shooter : MonoBehaviour {
     private float shootStrength;
 
     private void Update() {
-        if(Input.GetMouseButtonDown(0)) {
+        if(Input.GetKeyDown(KeyCode.F)) {
             Shoot();
         }
     }

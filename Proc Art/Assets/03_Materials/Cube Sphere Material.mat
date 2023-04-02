@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cube Sphere Mat
+  m_Name: Cube Sphere Material
   m_Shader: {fileID: -6465566751694194690, guid: 7de71a8c14c370347aaf65e5c8e66d29,
     type: 3}
   m_ValidKeywords: []
