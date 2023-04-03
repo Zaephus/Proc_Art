@@ -4,23 +4,15 @@ using UnityEngine;
 
 public class TowerGenerator : StructureGenerator {
 
-    protected override IEnumerator Generate() {
+    public IEnumerator Generate(TowerConfig _config) {
 
-        isGenerating = true;
-
-        if(transform.childCount > 0) {
-            for(int i = transform.childCount-1; i >= 0; i--) {
-                Destroy(transform.GetChild(i).gameObject);
-            }
-        }
-
-        float radius = CalculateRadius();
+        float radius = CalculateRadius(_config.brickAmount.x, _config.brickMargin.x);
         
         float xOffset = 0;
 
         float iterator = 0;
 
-        for(int y = 0; y < brickAmount.y; y++) {
+        for(int y = 0; y < _config.brickAmount.y; y++) {
 
             if(y % 2 == 0) {
                 xOffset = 0;
@@ -29,46 +21,45 @@ public class TowerGenerator : StructureGenerator {
                 xOffset = 0.5f * brickSize.x;
             }
 
-            for(int x = 0; x < brickAmount.x; x++) {
+            for(int x = 0; x < _config.brickAmount.x; x++) {
 
-                if(Mathf.Clamp01(iterator * Random.value) > brickGenChance) {
-                    if(delayBetweenBricks > 0.0f) {
-                        yield return new WaitForSeconds(delayBetweenBricks);
+                if(Mathf.Clamp01(iterator * Random.value) > _config.brickGenChance) {
+                    if(_config.delayBetweenBricks > 0.0f) {
+                        yield return new WaitForSeconds(_config.delayBetweenBricks);
                     }
                     iterator = 0;
                     continue;
                 }
 
-                float theta = (x * brickSize.x + xOffset) * ((2 * Mathf.PI) / brickAmount.x);
+                float theta = (x * brickSize.x + xOffset) * ((2 * Mathf.PI) / _config.brickAmount.x);
 
                 Vector3 pos = transform.position + new Vector3(
-                    radius * Mathf.Cos(theta) + positionOffset.x,
-                    brickSize.y * 0.5f + y * brickSize.y + y * brickMargin.y,
-                    radius * Mathf.Sin(theta) + positionOffset.y 
+                    radius * Mathf.Cos(theta) + _config.positionOffset.x,
+                    brickSize.y * 0.5f + y * brickSize.y + y * _config.brickMargin.y,
+                    radius * Mathf.Sin(theta) + _config.positionOffset.y 
                 );
 
-                Vector3 lookPos = new Vector3(transform.position.x + positionOffset.x, pos.y, transform.position.z + positionOffset.y);
+                Vector3 lookPos = new Vector3(transform.position.x + _config.positionOffset.x, pos.y, transform.position.z + _config.positionOffset.y);
                 Quaternion rot = Quaternion.LookRotation(pos - lookPos, transform.up);
 
-                Instantiate(GetBrick(), pos, rot, transform);
+                Instantiate(GetBrick(_config.explosiveBrickChance), pos, rot, transform);
 
                 iterator += 0.1f;
 
-                if(delayBetweenBricks > 0.0f) {
-                    yield return new WaitForSeconds(delayBetweenBricks);
+                if(_config.delayBetweenBricks > 0.0f) {
+                    yield return new WaitForSeconds(_config.delayBetweenBricks);
                 }
 
             }
 
         }
 
-        isGenerating = false;
         yield return null;
 
     }
 
-    private float CalculateRadius() {
-        float innerRadius = (brickAmount.x * (brickSize.x + brickMargin.x)) / (2 * Mathf.PI);
+    private float CalculateRadius(int _amountX, float _marginX) {
+        float innerRadius = (_amountX * (brickSize.x + _marginX)) / (2 * Mathf.PI);
         return innerRadius + brickSize.z/2;
     }
 

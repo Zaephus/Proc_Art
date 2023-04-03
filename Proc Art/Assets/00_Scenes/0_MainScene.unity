@@ -463,8 +463,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1175937401}
+  - component: {fileID: 1175937404}
   - component: {fileID: 1175937400}
   - component: {fileID: 1175937402}
+  - component: {fileID: 1175937403}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -479,17 +481,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175937399}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24c04c5f6a1336344bb7c0f6c05ce8f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   brickPrefab: {fileID: 4940610289335935981, guid: 9b65c527427fe6542b8b45407d49180a,
     type: 3}
-  brickAmount: {x: 15, y: 4}
-  brickMargin: {x: 0.05, y: 0}
-  delayBetweenBricks: 0.01
-  brickChance: 0.9
+  explosiveBrickPrefab: {fileID: 4953169683629929486, guid: e3150cb0a973c634e9a7156a908eca7e,
+    type: 3}
 --- !u!4 &1175937401
 Transform:
   m_ObjectHideFlags: 0
@@ -519,10 +519,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brickPrefab: {fileID: 4940610289335935981, guid: 9b65c527427fe6542b8b45407d49180a,
     type: 3}
-  brickAmount: {x: 28, y: 15}
-  brickMargin: {x: 0, y: 0}
-  delayBetweenBricks: 0.01
-  brickChance: 0.9
+  explosiveBrickPrefab: {fileID: 4953169683629929486, guid: e3150cb0a973c634e9a7156a908eca7e,
+    type: 3}
+--- !u!114 &1175937403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175937399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e47c21d160dce59438350ddabacdae8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brickPrefab: {fileID: 4940610289335935981, guid: 9b65c527427fe6542b8b45407d49180a,
+    type: 3}
+  explosiveBrickPrefab: {fileID: 4953169683629929486, guid: e3150cb0a973c634e9a7156a908eca7e,
+    type: 3}
+--- !u!114 &1175937404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175937399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d878bfcc2bd57594b9827c5d726acad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genConfig: {fileID: 11400000, guid: e7c82995f314f174c985e2b4a48ca408, type: 2}
 --- !u!1 &1669013010
 GameObject:
   m_ObjectHideFlags: 0
