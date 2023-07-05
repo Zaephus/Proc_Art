@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,9 @@ public class LevelGenerator : MonoBehaviour {
 
     [SerializeField]
     private GenerationConfig genConfig;
+
+    [SerializeField]
+    private GameObject explosiveBrickPrefab;
 
     private SemiCircleGenerator semiCircleGenerator;
     private TowerGenerator towerGenerator;
@@ -23,6 +27,19 @@ public class LevelGenerator : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Space) && !isGenerating) {
             StartCoroutine(Generate());
+        }
+
+        if(Input.GetMouseButtonDown(0)) {
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray, out hit)) {
+                if(hit.collider.GetComponent<Brick>() != null) {
+                    CreateExplosiveBrick(hit.collider.GetComponent<Brick>());
+                }
+            }
+
         }
 
     }
@@ -74,6 +91,18 @@ public class LevelGenerator : MonoBehaviour {
 
         isGenerating = false;
         yield return new WaitForEndOfFrame();
+
+    }
+
+    private void CreateExplosiveBrick(Brick _brick) {
+        
+        Vector3 pos = _brick.transform.position;
+        Quaternion rot = _brick.transform.rotation;
+        Vector3 scale = _brick.transform.localScale;
+
+        Destroy(_brick.gameObject);
+
+        Instantiate(explosiveBrickPrefab, pos, rot);
 
     }
 
