@@ -13,9 +13,11 @@ public class ExplosiveBrick : MonoBehaviour {
     private float timeBeforeDestroy;
 
     private Rigidbody body;
+    private AudioSource source;
 
     private void Start() {
         body = GetComponent<Rigidbody>();
+        source = GetComponent<AudioSource>();
         StartCoroutine(Explode(Random.Range(waitTimeRange.x, waitTimeRange.y)));
     }
 
@@ -28,6 +30,7 @@ public class ExplosiveBrick : MonoBehaviour {
     private IEnumerator Explode(float _waitTime) {
         yield return new WaitForSeconds(_waitTime);
         body.AddForce(Random.Range(forceRange.x, forceRange.y) * transform.up, ForceMode.Impulse);
+        source.Play();
 
         yield return new WaitForSeconds(timeBeforeDestroy);
         Destroy(gameObject);
