@@ -15,14 +15,14 @@ MonoBehaviour:
   towerConfigs:
   - brickAmount: {x: 15, y: 10}
     brickMargin: {x: 0, y: 0}
-    delayBetweenBricks: 0.1
+    delayBetweenBricks: 0.02
     brickGenChance: 0.9
     explosiveBrickChance: 0
     positionOffset: {x: 0, y: 0}
   semiCircleConfigs:
   - brickAmount: {x: 15, y: 8}
     brickMargin: {x: 0, y: 0}
-    delayBetweenBricks: 0.1
+    delayBetweenBricks: 0.02
     brickGenChance: 0.9
     explosiveBrickChance: 0
     positionOffset: {x: 0, y: 0}
@@ -30,19 +30,19 @@ MonoBehaviour:
   wallConfigs:
   - brickAmount: {x: 15, y: 4}
     brickMargin: {x: 0.05, y: 0}
-    delayBetweenBricks: 0.1
+    delayBetweenBricks: 0.02
     brickGenChance: 0.9
     explosiveBrickChance: 0
     positionOffset: {x: 0, y: -4.4}
   - brickAmount: {x: 15, y: 6}
     brickMargin: {x: 0.05, y: 0}
-    delayBetweenBricks: 0.1
+    delayBetweenBricks: 0.02
     brickGenChance: 0.9
     explosiveBrickChance: 0
     positionOffset: {x: 0, y: -5}
   - brickAmount: {x: 15, y: 4}
     brickMargin: {x: 0.05, y: 0}
-    delayBetweenBricks: 0.1
+    delayBetweenBricks: 0.02
     brickGenChance: 0.9
     explosiveBrickChance: 0
     positionOffset: {x: 0, y: -5.6}
