@@ -102,7 +102,7 @@ public class LevelGenerator : MonoBehaviour {
 
         Destroy(_brick.gameObject);
 
-        Instantiate(explosiveBrickPrefab, pos, rot);
+        Instantiate(explosiveBrickPrefab, pos, rot, transform);
 
     }
 
