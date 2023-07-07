@@ -52,7 +52,7 @@ public class AudioPeer : MonoBehaviour
 
 
 	// Use this for initialization
-	void Start()
+	public void Start()
 	{
 		_audioProfile = 0.5f;
 		_audioBand = new float[8];
